@@ -5,8 +5,9 @@ const addtask = async (req, res) => {
 
         const { title, description, status, user } = req.body;
 
-        const taskstatus = "pending"
-        const task = await Task.create({ title, description, status: status ? status : taskstatus, user });
+        // const taskstatus = "pending"
+        // const task = await Task.create({ title, description, status: status ? status : taskstatus, user });
+        const task = await Task.create({ title, description, status, user });
 
         res.status(200).json({ message: "task inserted", task });
     }

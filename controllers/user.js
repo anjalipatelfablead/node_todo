@@ -12,12 +12,10 @@ const createuser = async (req, res) => {
             return res.status(409).json({ message: "email is already there" });
         }
 
-        const userrole = "user";
-
         const hashedpassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
-            username, email, password: hashedpassword,role: role?role : userrole
+            username, email, password: hashedpassword, role
         });
         res.status(201).json({ message: " user inserted: ", user })
     }
@@ -109,7 +107,7 @@ const loginuser = async (req, res) => {
 
         res.status(200).json({
             message: 'logged in', token, user: {
-                _id: user._id, username: user.username, email: user.email,role: user.role
+                _id: user._id, username: user.username, email: user.email, role: user.role
             }
         })
     }
