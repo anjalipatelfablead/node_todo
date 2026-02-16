@@ -70,7 +70,7 @@ const deletetask = async (req, res) => {
             return res.status(404).json({ message: "no task is there" });
         }
 
-        res.status(200).json({ message: "task is deelted", task });
+        res.status(200).json({ message: "task is deleted", task });
     }
     catch (err) {
         res.status(500).json({ mesage: err });
@@ -84,7 +84,7 @@ const updatetask = async (req, res) => {
             return res.status(404).json({ message: "no task is there" });
         }
 
-        res.status(200).json({ message: "task is deleted", task });
+        res.status(200).json({ message: "task is updated", task });
     }
     catch (err) {
         res.status(500).json({ mesage: err });
