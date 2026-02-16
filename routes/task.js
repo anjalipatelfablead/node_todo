@@ -11,7 +11,7 @@ router.get("/", authMiddleware, roleMiddleware(["admin"]), getalltask);
 // router.get("/", getalltask);
 router.get("/user/:id", authMiddleware, roleMiddleware(["admin", "user"]), gettaskbyuser);
 router.get("/:id", authMiddleware, roleMiddleware(["admin", "user"]), gettaskbyid);
-router.put("/:id", authMiddleware, roleMiddleware(["admin", "user"]), updatetask);
+router.put("/:id", authMiddleware, roleMiddleware(["user"]), updatetask);
 router.delete("/:id", authMiddleware, roleMiddleware(["admin", "user"]), deletetask);
 
 module.exports = router;
