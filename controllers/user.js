@@ -7,9 +7,29 @@ const createuser = async (req, res) => {
     try {
         const { username, email, password, role } = req.body;
 
+        if (!username) {
+            return res.status(400).json({ message: "username is required" });
+        }
+        if (!email) {
+            return res.status(400).json({ message: "email is required" });
+        }
+        if (!password) {
+            return res.status(400).json({ message: "password is required" });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({ message: "password must be at leat 8 character long" });
+        }
+
+        const passwordRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+        if (!passwordRegex.test(password)) {
+            return res.status(400).json({ message: "password must contains at least one special character " });
+        }
+
         const existinguser = await User.findOne({ email });
         if (existinguser) {
-            return res.status(409).json({ message: "email is already there" });
+            return res.status(409).json({ message: "Email is already there" });
         }
 
         const hashedpassword = await bcrypt.hash(password, 10);
@@ -85,6 +105,13 @@ const loginuser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        if (!email) {
+            return res.status(400).json({ message: "email is required" });
+        }
+        if (!password) {
+            return res.status(400).json({ message: "password is required" });
+        }
+
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -103,7 +130,7 @@ const loginuser = async (req, res) => {
             role: user.role,
         },
             process.env.JWT_SECRET_KEY,
-            { expiresIn: "30m" }
+            { expiresIn: "1h" }
         );
 
         res.status(200).json({
