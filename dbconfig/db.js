@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const url = "mongodb://localhost:27017/testing"
+const url =process.env.MONGODB_URI ;
 
 const dbconnect= async() =>{
     try{
